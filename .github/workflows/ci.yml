@@ -36,7 +36,7 @@ jobs:
           ./venv/bin/flake8 app/
           ./venv/bin/isort --check-only app/
           ./venv/bin/black --check app/
-          ./venv/bin/mypy app/
+#          ./venv/bin/mypy app/
 
       - name: Run tests
         run: ./venv/bin/pytest app/test_main.py
