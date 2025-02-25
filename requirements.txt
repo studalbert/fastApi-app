@@ -27,3 +27,6 @@ types-ujson==5.10.0.20240515
 typing_extensions==4.12.2
 urllib3==2.3.0
 uvicorn==0.34.0
+flake8
+flake8-bugbear
+flake8-pie
