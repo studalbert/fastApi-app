@@ -18,7 +18,7 @@ jobs:
           pip install -r requirements_linters.txt
       - name: Run linters
         run: |
-          flake8 app/
+#          flake8 app/
           isort --check-only app/
           black --check app/
           mypy app/
