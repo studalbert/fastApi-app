@@ -9,7 +9,7 @@ h11==0.14.0
 idna==3.10
 iniconfig==2.0.0
 isort==6.0.0
-mypy==1.15.0
+mypy==1.11.1
 mypy-extensions==1.0.0
 packaging==24.2
 pathspec==0.12.1
