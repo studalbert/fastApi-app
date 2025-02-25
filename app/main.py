@@ -23,7 +23,7 @@ from database import async_session, engine
 #     await session.close()
 #     await engine.dispose()
 
-#1
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
