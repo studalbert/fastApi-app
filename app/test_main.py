@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+
 from main import app
 
 client = TestClient(app)
@@ -42,11 +43,11 @@ def test_create_recipe_with_error():
 
 
 def test_get_recipe_by_id():
-    response = client.get("/recipes/1")
+    response = client.get("/recipes/2")
     data = response.json()
     assert response.status_code == 200
     assert isinstance(data, dict)
-    assert data["id"] == 1
+    assert data["id"] == 2
 
 
 def test_get_recipe_by_id_with_error():
