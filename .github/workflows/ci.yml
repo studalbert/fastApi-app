@@ -1,0 +1,26 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements_linters.txt
+      - name: Run linters
+        run: |
+#          flake8 app/
+          isort --check-only app/
+          black --check app/
+          mypy app/
+      - name: Run tests
+        run: pytest test_main

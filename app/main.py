@@ -1,18 +1,16 @@
 from contextlib import asynccontextmanager
-from typing import List
+from typing import Annotated, List
 
 import uvicorn
-from fastapi import FastAPI, HTTPException, status, Depends
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.params import Path
 from sqlalchemy import desc
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 import models
 import schemas
-from database import engine, async_session
-from typing import Annotated
-from fastapi.params import Path
-
+from database import async_session, engine
 
 # @app.on_event("startup")
 # async def shutdown():
@@ -37,7 +35,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     lifespan=lifespan,
-    openapi_tags=[{"name": "recipes", "description": "Operations with recipes."}],
+    openapi_tags=[
+        {"name": "recipes", "description": "Operations with recipes."}
+    ],
 )
 
 
@@ -60,12 +60,16 @@ async def get_all_recipes(
             # models.Recipe.title,
             # models.Recipe.number_of_views,
             # models.Recipe.cooking_time,
-        ).order_by(desc(models.Recipe.number_of_views), models.Recipe.cooking_time)
+        ).order_by(
+            desc(models.Recipe.number_of_views), models.Recipe.cooking_time
+        )
     )
     return res.scalars().all()
 
 
-@app.get("/recipes/{recipe_id}", response_model=schemas.RecipeOut, tags=["recipes"])
+@app.get(
+    "/recipes/{recipe_id}", response_model=schemas.RecipeOut, tags=["recipes"]
+)
 async def get_recipe_by_id(
     recipe_id: Annotated[int, Path(title="Id of the recipe", ge=1)],
     session: AsyncSession = Depends(get_session),
@@ -114,7 +118,9 @@ async def post_recipe(
 
 
 @app.delete(
-    "/recipes/{recipe_id}", status_code=status.HTTP_204_NO_CONTENT, tags=["recipes"]
+    "/recipes/{recipe_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    tags=["recipes"],
 )
 async def delete_recipe_by_id(
     recipe_id: Annotated[int, Path(title="Id of the recipe", ge=1)],
