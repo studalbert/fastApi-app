@@ -39,5 +39,5 @@ jobs:
 #          ./venv/bin/mypy app/
 
       - name: Run tests
-        run: ./venv/bin/pytest app/test_main
+        run: ./venv/bin/pytest app/test_main.py
 
