@@ -1,16 +1,15 @@
 from contextlib import asynccontextmanager
 from typing import Annotated, List
 
+import models
+import schemas
 import uvicorn
+from database import async_session, engine
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.params import Path
 from sqlalchemy import desc
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
-import models
-import schemas
-from database import async_session, engine
 
 # @app.on_event("startup")
 # async def shutdown():

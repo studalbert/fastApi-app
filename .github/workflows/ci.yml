@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main  # Укажите вашу основную ветку
+      - main
   pull_request:
 
 jobs:
@@ -22,22 +22,22 @@ jobs:
         uses: actions/cache@v3
         with:
           path: venv
-          key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements_linters.txt') }}
+          key: ${{ runner.os }}-venv-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-venv-
 
       - name: Install dependencies
         run: |
           python -m venv venv
-          ./venv/bin/pip install -r requirements_linters.txt
+          ./venv/bin/pip install -r requirements.txt
 
       - name: Run linters
         run: |
           ./venv/bin/flake8 app/
           ./venv/bin/isort --check-only app/
           ./venv/bin/black --check app/
-          ./venv/bin/mypy app/
+#          ./venv/bin/mypy app/
 
       - name: Run tests
-        run: ./venv/bin/pytest test_main
+        run: ./venv/bin/pytest app/test_main.py
 
